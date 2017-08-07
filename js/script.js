@@ -59,9 +59,6 @@ function showMyFace() {
 function showFriendsFace() {
     console.log('here')
   pc.createOffer()
-    .then(offer => {
-        console.log(offer)
-        pc.setLocalDescription(offer)
-    } )
+    .then(offer => pc.setLocalDescription(offer))
     .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc.localDescription})) );
 }
