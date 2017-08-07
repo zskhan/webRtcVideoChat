@@ -3,12 +3,13 @@ var RTCPeerConnection = window.webkitRTCPeerConnection;
 
 //Create an account on Firebase, and use the credentials they give you in place of the following
 var config = {
-  apiKey: "AIzaSyCTw5HVSY8nZ7QpRp_gBOUyde_IPU9UfXU",
-  authDomain: "websitebeaver-de9a6.firebaseapp.com",
-  databaseURL: "https://websitebeaver-de9a6.firebaseio.com",
-  storageBucket: "websitebeaver-de9a6.appspot.com",
-  messagingSenderId: "411433309494"
-};
+    apiKey: "AIzaSyCvG8LyUq3GBUeGYCKDiYApK-UBK2GZU8k",
+    authDomain: "proud-lead-148406.firebaseapp.com",
+    databaseURL: "https://proud-lead-148406.firebaseio.com",
+    projectId: "proud-lead-148406",
+    storageBucket: "proud-lead-148406.appspot.com",
+    messagingSenderId: "809376440102"
+  };
 firebase.initializeApp(config);
 
 var database = firebase.database().ref();
@@ -44,13 +45,23 @@ function readMessage(data) {
 database.on('child_added', readMessage);
 
 function showMyFace() {
+
   navigator.mediaDevices.getUserMedia({audio:true, video:true})
-    .then(stream => yourVideo.srcObject = stream)
+    .then(stream => {
+        yourVideo.srcObject = stream;
+        return stream;
+    })
     .then(stream => pc.addStream(stream));
+
+
 }
 
 function showFriendsFace() {
+    console.log('here')
   pc.createOffer()
-    .then(offer => pc.setLocalDescription(offer) )
+    .then(offer => {
+        console.log(offer)
+        pc.setLocalDescription(offer)
+    } )
     .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc.localDescription})) );
 }
