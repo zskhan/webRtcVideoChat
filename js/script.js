@@ -45,7 +45,6 @@ function readMessage(data) {
 database.on('child_added', readMessage);
 
 function showMyFace() {
-
   navigator.mediaDevices.getUserMedia({audio:true, video:true})
     .then(stream => {
         yourVideo.srcObject = stream;
@@ -57,7 +56,6 @@ function showMyFace() {
 }
 
 function showFriendsFace() {
-    console.log('here')
   pc.createOffer()
     .then(offer => pc.setLocalDescription(offer))
     .then(() => sendMessage(yourId, JSON.stringify({'sdp': pc.localDescription})) );
